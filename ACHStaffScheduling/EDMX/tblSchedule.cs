@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACHStaffScheduling.EDMX
+namespace ACHSystem.EDMX
 {
     using System;
     using System.Collections.Generic;

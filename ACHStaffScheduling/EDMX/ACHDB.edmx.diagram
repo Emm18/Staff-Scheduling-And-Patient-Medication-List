@@ -4,13 +4,17 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="82f923e4e8be470abee24f75eef9e856" Name="Diagram1">
-        <EntityTypeShape EntityType="ACHDBModel.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ACHDBModel.tblEmployee" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="ACHDBModel.tblFacility" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ACHDBModel.tblSchedule" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="ACHDBModel.FK_tblSchedule_tblEmployee" ManuallyRouted="false" />
-        <AssociationConnector Association="ACHDBModel.FK_tblSchedule_tblFacility" ManuallyRouted="false" />
+      <Diagram DiagramId="0e90f20f971c4a1a9a8e2450aed1f314" Name="Diagram1">
+        <EntityTypeShape EntityType="ACHDB.sysdiagram" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACHDB.tblEmployee" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACHDB.tblFacility" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ACHDB.tblSchedule" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="ACHDB.FK_tblSchedule_tblEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="ACHDB.FK_tblSchedule_tblFacility" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ACHDB.tblPatient" Width="1.5" PointX="3" PointY="8" />
+        <AssociationConnector Association="ACHDB.FK_tblPatient_tblFacility" />
+        <EntityTypeShape EntityType="ACHDB.tblPatientMedicationList" Width="1.5" PointX="5.25" PointY="7.875" />
+        <AssociationConnector Association="ACHDB.FK_tblPatientMedicationList_tblPatient" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

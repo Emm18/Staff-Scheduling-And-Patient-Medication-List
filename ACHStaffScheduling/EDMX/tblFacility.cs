@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACHStaffScheduling.EDMX
+namespace ACHSystem.EDMX
 {
     using System;
     using System.Collections.Generic;
@@ -18,6 +18,7 @@ namespace ACHStaffScheduling.EDMX
         public tblFacility()
         {
             this.tblSchedules = new HashSet<tblSchedule>();
+            this.tblPatients = new HashSet<tblPatient>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace ACHStaffScheduling.EDMX
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblSchedule> tblSchedules { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPatient> tblPatients { get; set; }
     }
 }

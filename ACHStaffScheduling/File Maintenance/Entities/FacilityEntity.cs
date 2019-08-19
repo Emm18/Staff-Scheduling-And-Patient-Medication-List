@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACHStaffScheduling.File_Maintenance.Entities
+namespace ACHSystem.File_Maintenance.Entities
 {
     public class FacilityEntity
     {

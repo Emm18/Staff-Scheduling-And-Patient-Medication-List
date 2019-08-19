@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ACHStaffScheduling.EDMX
+namespace ACHSystem.EDMX
 {
     using System;
     using System.Data.Entity;
@@ -29,5 +29,7 @@ namespace ACHStaffScheduling.EDMX
         public virtual DbSet<tblEmployee> tblEmployees { get; set; }
         public virtual DbSet<tblFacility> tblFacilities { get; set; }
         public virtual DbSet<tblSchedule> tblSchedules { get; set; }
+        public virtual DbSet<tblPatient> tblPatients { get; set; }
+        public virtual DbSet<tblPatientMedicationList> tblPatientMedicationLists { get; set; }
     }
 }

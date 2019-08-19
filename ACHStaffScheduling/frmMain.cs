@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ACHStaffScheduling
+namespace ACHSystem
 {
     public partial class frmMain : Form
     {
@@ -16,11 +16,14 @@ namespace ACHStaffScheduling
         {
             InitializeComponent();
         }
-        ACHStaffScheduling.File_Maintenance.frmEmployee frmEmp;
-        ACHStaffScheduling.File_Maintenance.frmFacility frmFac;
-        ACHStaffScheduling.Setting.frmSetSchedule frmSetSched;
-        ACHStaffScheduling.View.frmViewScheduleByEmployee frmViewSchedByEmp;
-        ACHStaffScheduling.View.frmViewScheduleByFacility frmViewSchedByFac;
+        ACHSystem.File_Maintenance.frmEmployee frmEmp;
+        ACHSystem.File_Maintenance.frmFacility frmFac;
+        ACHSystem.Setting.frmSetSchedule frmSetSched;
+        ACHSystem.View.frmViewScheduleByEmployee frmViewSchedByEmp;
+        ACHSystem.View.frmViewScheduleByFacility frmViewSchedByFac;
+        ACHSystem.Edit.frmPatientMedicationList frmPatMedList;
+        ACHSystem.View.frmViewPatientMedicationList frmViewPatMedList;
+        ACHSystem.File_Maintenance.frmPatient frmPat;
         private void employeeInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Boolean IsFormShown = false;
@@ -35,7 +38,7 @@ namespace ACHStaffScheduling
             if (!IsFormShown)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                frmEmp = new ACHStaffScheduling.File_Maintenance.frmEmployee();
+                frmEmp = new ACHSystem.File_Maintenance.frmEmployee();
                 frmEmp.MdiParent = this;
                 frmEmp.Font = this.Font;
                 frmEmp.Show();
@@ -57,7 +60,7 @@ namespace ACHStaffScheduling
             if (!IsFormShown)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                frmFac = new ACHStaffScheduling.File_Maintenance.frmFacility();
+                frmFac = new ACHSystem.File_Maintenance.frmFacility();
                 frmFac.MdiParent = this;
                 frmFac.Font = this.Font;
                 frmFac.Show();
@@ -79,7 +82,7 @@ namespace ACHStaffScheduling
             if (!IsFormShown)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                frmSetSched = new ACHStaffScheduling.Setting.frmSetSchedule();
+                frmSetSched = new ACHSystem.Setting.frmSetSchedule();
                 frmSetSched.MdiParent = this;
                 frmSetSched.Font = this.Font;
                 frmSetSched.Show();
@@ -101,7 +104,7 @@ namespace ACHStaffScheduling
             if (!IsFormShown)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                frmViewSchedByFac = new ACHStaffScheduling.View.frmViewScheduleByFacility();
+                frmViewSchedByFac = new ACHSystem.View.frmViewScheduleByFacility();
                 frmViewSchedByFac.MdiParent = this;
                 frmViewSchedByFac.Font = this.Font;
                 frmViewSchedByFac.Show();
@@ -123,10 +126,81 @@ namespace ACHStaffScheduling
             if (!IsFormShown)
             {
                 Cursor.Current = Cursors.WaitCursor;
-                frmViewSchedByEmp = new ACHStaffScheduling.View.frmViewScheduleByEmployee();
+                frmViewSchedByEmp = new ACHSystem.View.frmViewScheduleByEmployee();
                 frmViewSchedByEmp.MdiParent = this;
                 frmViewSchedByEmp.Font = this.Font;
                 frmViewSchedByEmp.Show();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void patientMedicationListToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Boolean IsFormShown = false;
+            foreach (Form ChildForm in this.MdiChildren)
+            {
+                if (ChildForm.Name == "frmPatientMedicationList")
+                {
+                    IsFormShown = true;
+                    ChildForm.Focus();
+                }  // End if
+            } // end for
+            if (!IsFormShown)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                frmPatMedList = new ACHSystem.Edit.frmPatientMedicationList();
+                frmPatMedList.MdiParent = this;
+                frmPatMedList.Font = this.Font;
+                frmPatMedList.Show();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void patientMedicationListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Boolean IsFormShown = false;
+            foreach (Form ChildForm in this.MdiChildren)
+            {
+                if (ChildForm.Name == "frmViewPatientMedicationList")
+                {
+                    IsFormShown = true;
+                    ChildForm.Focus();
+                }  // End if
+            } // end for
+            if (!IsFormShown)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                frmViewPatMedList = new ACHSystem.View.frmViewPatientMedicationList();
+                frmViewPatMedList.MdiParent = this;
+                frmViewPatMedList.Font = this.Font;
+                frmViewPatMedList.Show();
+                Cursor.Current = Cursors.Default;
+            }
+        }
+
+        private void patientInformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Boolean IsFormShown = false;
+            foreach (Form ChildForm in this.MdiChildren)
+            {
+                if (ChildForm.Name == "frmPatient")
+                {
+                    IsFormShown = true;
+                    ChildForm.Focus();
+                }  // End if
+            } // end for
+            if (!IsFormShown)
+            {
+                Cursor.Current = Cursors.WaitCursor;
+                frmPat = new ACHSystem.File_Maintenance.frmPatient();
+                frmPat.MdiParent = this;
+                frmPat.Font = this.Font;
+                frmPat.Show();
                 Cursor.Current = Cursors.Default;
             }
         }

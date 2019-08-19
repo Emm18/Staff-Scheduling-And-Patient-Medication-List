@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ACHStaffScheduling.Setting
+namespace ACHSystem.Setting
 {
     public class SetScheduleEntity
     {

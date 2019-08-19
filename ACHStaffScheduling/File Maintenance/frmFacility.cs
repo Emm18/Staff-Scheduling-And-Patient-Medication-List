@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ACHStaffScheduling.File_Maintenance.Entities;
+using ACHSystem.File_Maintenance.Entities;
 
-namespace ACHStaffScheduling.File_Maintenance
+namespace ACHSystem.File_Maintenance
 {
     public partial class frmFacility : Form
     {
@@ -30,133 +30,184 @@ namespace ACHStaffScheduling.File_Maintenance
         #region Methods
         public void addMode()
         {
-            _isActive = true;
+            try
+            {
+                _isActive = true;
 
-            //get temp id to show on lblEmployeeID
-            lblFacilityId.Text = getTempId().ToString();
-            chkActive.Checked = true;
+                lblFacilityId.Text = getTempId().ToString();
+                chkActive.Checked = true;
 
-            txtName.Text = "";
-            txtAddress.Text = "";
+                txtName.Text = "";
+                txtAddress.Text = "";
 
-            lblCreated.Text = "";
-            lblUpdated.Text = "";
+                lblCreated.Text = "";
+                lblUpdated.Text = "";
 
-            txtName.Enabled = true;
-            txtAddress.Enabled = true;
+                txtName.Enabled = true;
+                txtAddress.Enabled = true;
 
-            chkActive.Enabled = true;
+                chkActive.Enabled = true;
 
-            txtName.Focus();
+                txtName.Focus();
 
-            btnAdd.Enabled = false;
-            btnSave.Enabled = true;
-            btnCancel.Enabled = true;
-            btnEdit.Enabled = false;
-            btnUpdate.Enabled = false;
+                btnAdd.Enabled = false;
+                btnSave.Enabled = true;
+                btnCancel.Enabled = true;
+                btnEdit.Enabled = false;
+                btnUpdate.Enabled = false;
 
-            lblStatus.Text = "Status : Adding New Facility Information ...";
+                lblStatus.Text = "Status : Adding New Facility Information ...";
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Add Mode");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         public void editMode()
         {
-            _isActive = true;
+            try
+            {
+                _isActive = true;
 
-            txtName.Enabled = true;
-            txtAddress.Enabled = true;
+                txtName.Enabled = true;
+                txtAddress.Enabled = true;
 
-            chkActive.Enabled = true;
+                chkActive.Enabled = true;
 
-            txtName.Focus();
+                txtName.Focus();
 
-            btnAdd.Enabled = false;
-            btnSave.Enabled = false;
-            btnCancel.Enabled = true;
-            btnEdit.Enabled = false;
-            btnUpdate.Enabled = true;
+                btnAdd.Enabled = false;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = true;
+                btnEdit.Enabled = false;
+                btnUpdate.Enabled = true;
 
-            lblStatus.Text = "Status : Editing Facility Information ...";
+                lblStatus.Text = "Status : Editing Facility Information ...";
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Edit Mode");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         public void saveFacility(FacilityEntity obj)
         {
-            using (ACHStaffScheduling.EDMX.ACHDBContainer db = new ACHStaffScheduling.EDMX.ACHDBContainer())
+            try
             {
-                EDMX.tblFacility fac = new EDMX.tblFacility
+                using (ACHSystem.EDMX.ACHDBContainer db = new ACHSystem.EDMX.ACHDBContainer())
                 {
-                    Id = obj.FacilityId,
-                    Name = obj.Name,
-                    Address= obj.Address,
-                    Active = obj.Active,
-                    DateCreated = obj.DateCreated,
-                    DateUpdated = obj.DateUpdated
-                };
-                db.tblFacilities.Add(fac);
-                db.SaveChanges();
+                    EDMX.tblFacility fac = new EDMX.tblFacility
+                    {
+                        Id = obj.FacilityId,
+                        Name = obj.Name,
+                        Address = obj.Address,
+                        Active = obj.Active,
+                        DateCreated = obj.DateCreated,
+                        DateUpdated = obj.DateUpdated
+                    };
+                    db.tblFacilities.Add(fac);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Save Facility");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         public void updateFacility(FacilityEntity obj)
         {
-            using (ACHStaffScheduling.EDMX.ACHDBContainer db = new ACHStaffScheduling.EDMX.ACHDBContainer())
+            try
             {
-                EDMX.tblFacility emp = db.tblFacilities.Where(x => x.Id == obj.FacilityId).FirstOrDefault();
-                emp.Name = obj.Name;
-                emp.Address = obj.Address;
-                emp.Active = obj.Active;
-                emp.DateCreated = obj.DateCreated;
-                emp.DateUpdated = obj.DateUpdated;
-                db.SaveChanges();
+                using (ACHSystem.EDMX.ACHDBContainer db = new ACHSystem.EDMX.ACHDBContainer())
+                {
+                    EDMX.tblFacility emp = db.tblFacilities.Where(x => x.Id == obj.FacilityId).FirstOrDefault();
+                    emp.Name = obj.Name;
+                    emp.Address = obj.Address;
+                    emp.Active = obj.Active;
+                    emp.DateCreated = obj.DateCreated;
+                    emp.DateUpdated = obj.DateUpdated;
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Update Facility");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         public void resetSettings()
         {
-            _isActive = false;
+            try
+            {
+                _isActive = false;
 
-            //clear fields
-            lblFacilityId.Text = "0";
-            chkActive.Checked = false;
+                lblFacilityId.Text = "0";
+                chkActive.Checked = false;
 
-            txtName.Text = "";
-            txtAddress.Text = "";
+                txtName.Text = "";
+                txtAddress.Text = "";
 
-            lblCreated.Text = "Created";
-            lblUpdated.Text = "Updated";
+                lblCreated.Text = "Created";
+                lblUpdated.Text = "Updated";
 
-            txtName.Enabled = false;
-            txtAddress.Enabled = false;
+                txtName.Enabled = false;
+                txtAddress.Enabled = false;
 
-            chkActive.Enabled = false;
+                chkActive.Enabled = false;
 
-            btnAdd.Enabled = true;
-            btnSave.Enabled = false;
-            btnCancel.Enabled = false;
-            btnEdit.Enabled = false;
-            btnUpdate.Enabled = false;
+                btnAdd.Enabled = true;
+                btnSave.Enabled = false;
+                btnCancel.Enabled = false;
+                btnEdit.Enabled = false;
+                btnUpdate.Enabled = false;
 
-            lblStatus.Text = "Status : ";
+                lblStatus.Text = "Status : ";
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Reset Settings");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
 
         public bool hasInvalidInput(string name,string address)
         {
             bool result = false;
-
-            if (name == "" || name == null)
+            try
             {
-                MessageBox.Show("Name Cannot Be Empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtName.Focus();
-                result = true;
+                if (name == "" || name == null)
+                {
+                    MessageBox.Show("Name Cannot Be Empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtName.Focus();
+                    result = true;
+                }
+                else if (address == "" || address == null)
+                {
+                    MessageBox.Show("Address Cannot Be Empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    txtAddress.Focus();
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
             }
-            else if (address == "" || address == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Address Cannot Be Empty", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtAddress.Focus();
+                ErrorLogging.Log(ex, this.Name, "Method Has Invalid Input");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 result = true;
-            }
-            else
-            {
-                result = false;
             }
             return result;
         }
@@ -164,106 +215,56 @@ namespace ACHStaffScheduling.File_Maintenance
         public int getTempId()
         {
             int result;
-            if(dgvFacility.RowCount == 0)
+            try
             {
+                if (dgvFacility.RowCount == 0)
+                {
+                    result = 1;
+                }
+                else
+                {
+                    result = Convert.ToInt32(dgvFacility[0, dgvFacility.RowCount - 1].Value) + 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Get Temp ID");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 result = 1;
             }
-            else
-            {
-                result = Convert.ToInt32(dgvFacility[0, dgvFacility.RowCount - 1].Value) + 1;
-            }
-
             return result;
         }
 
         public void getAllFacility()
         {
-            List<FacilityEntity> List = new List<FacilityEntity>();
-            using (ACHStaffScheduling.EDMX.ACHDBContainer db = new ACHStaffScheduling.EDMX.ACHDBContainer())
+            try
             {
-                List = db.tblFacilities.Select(x => new FacilityEntity
+                List<FacilityEntity> List = new List<FacilityEntity>();
+                using (ACHSystem.EDMX.ACHDBContainer db = new ACHSystem.EDMX.ACHDBContainer())
                 {
-                    FacilityId = x.Id,
-                    Name = x.Name,
-                    Address = x.Address,
-                    Active = x.Active,
-                    DateCreated = x.DateCreated,
-                    DateUpdated = x.DateUpdated
-                }).ToList();
+                    List = db.tblFacilities.Select(x => new FacilityEntity
+                    {
+                        FacilityId = x.Id,
+                        Name = x.Name,
+                        Address = x.Address,
+                        Active = x.Active,
+                        DateCreated = x.DateCreated,
+                        DateUpdated = x.DateUpdated
+                    }).ToList();
+                }
+
+                dgvFacility.DataSource = List;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Method Get All Facility");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            dgvFacility.DataSource = List;
         }
         #endregion
 
         #region objects
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            addMode();
-        }
-
-        private void btnSave_Click(object sender, EventArgs e)
-        {
-            if (hasInvalidInput(txtName.Text, txtAddress.Text) == false)
-            {
-                FacilityEntity fac = new FacilityEntity();
-                fac.FacilityId = Convert.ToInt32(lblFacilityId.Text);
-                fac.Name = txtName.Text;
-                fac.Address = txtAddress.Text;
-                if (chkActive.Checked)
-                {
-                    fac.Active = "Y";
-                }
-                else
-                {
-                    fac.Active = "N";
-                }
-                fac.DateCreated = DateTime.Now.ToString();
-                fac.DateUpdated = DateTime.Now.ToString();
-
-                saveFacility(fac);
-                getAllFacility();
-                resetSettings();
-                lblStatus.Text = "Status : Successfully Saved!";
-            }
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            resetSettings();
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            editMode();
-        }
-
-        private void btnUpdate_Click(object sender, EventArgs e)
-        {
-            if (hasInvalidInput(txtName.Text, txtAddress.Text) == false)
-            {
-                //update process
-                FacilityEntity fac = new FacilityEntity();
-                fac.FacilityId = Convert.ToInt32(lblFacilityId.Text);
-                fac.Name = txtName.Text;
-                fac.Address = txtAddress.Text;
-                if (chkActive.Checked)
-                {
-                    fac.Active = "Y";
-                }
-                else
-                {
-                    fac.Active = "N";
-                }
-                fac.DateCreated = lblCreated.Text;
-                fac.DateUpdated = DateTime.Now.ToString();
-
-                updateFacility(fac);
-                getAllFacility();
-                resetSettings();
-                lblStatus.Text = "Status : Successfully Updated!";
-            }
-        }
 
         private void dgvFacility_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -278,23 +279,117 @@ namespace ACHStaffScheduling.File_Maintenance
 
         private void dgvFacility_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (_isActive == false) //if this is true it means the user is currently adding or editing 
+            try
             {
-                lblFacilityId.Text = Convert.ToString(dgvFacility[0, dgvFacility.CurrentRow.Index].Value);
-                txtName.Text = Convert.ToString(dgvFacility[1, dgvFacility.CurrentRow.Index].Value);
-                txtAddress.Text = Convert.ToString(dgvFacility[2, dgvFacility.CurrentRow.Index].Value);
-                if (Convert.ToString(dgvFacility[3, dgvFacility.CurrentRow.Index].Value) == "Y")
+                if (_isActive == false) 
                 {
-                    chkActive.Checked = true;
+                    lblFacilityId.Text = Convert.ToString(dgvFacility[0, dgvFacility.CurrentRow.Index].Value);
+                    txtName.Text = Convert.ToString(dgvFacility[1, dgvFacility.CurrentRow.Index].Value);
+                    txtAddress.Text = Convert.ToString(dgvFacility[2, dgvFacility.CurrentRow.Index].Value);
+                    if (Convert.ToString(dgvFacility[3, dgvFacility.CurrentRow.Index].Value) == "Y")
+                    {
+                        chkActive.Checked = true;
+                    }
+                    else
+                    {
+                        chkActive.Checked = false;
+                    }
+                    lblCreated.Text = Convert.ToString(dgvFacility[4, dgvFacility.CurrentRow.Index].Value);
+                    lblUpdated.Text = Convert.ToString(dgvFacility[5, dgvFacility.CurrentRow.Index].Value);
+                    btnEdit.Enabled = true;
                 }
-                else
-                {
-                    chkActive.Checked = false;
-                }
-                lblCreated.Text = Convert.ToString(dgvFacility[4, dgvFacility.CurrentRow.Index].Value);
-                lblUpdated.Text = Convert.ToString(dgvFacility[5, dgvFacility.CurrentRow.Index].Value);
-                btnEdit.Enabled = true;
             }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "DataGridView Facility");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void btnAdd_Click_1(object sender, EventArgs e)
+        {
+            addMode();
+        }
+
+        private void btnSave_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (hasInvalidInput(txtName.Text, txtAddress.Text) == false)
+                {
+                    FacilityEntity fac = new FacilityEntity();
+                    fac.FacilityId = Convert.ToInt32(lblFacilityId.Text);
+                    fac.Name = txtName.Text;
+                    fac.Address = txtAddress.Text;
+                    if (chkActive.Checked)
+                    {
+                        fac.Active = "Y";
+                    }
+                    else
+                    {
+                        fac.Active = "N";
+                    }
+                    fac.DateCreated = DateTime.Now.ToString();
+                    fac.DateUpdated = DateTime.Now.ToString();
+
+                    saveFacility(fac);
+                    getAllFacility();
+                    resetSettings();
+                    lblStatus.Text = "Status : Successfully Saved!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Button Save");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private void btnCancel_Click_1(object sender, EventArgs e)
+        {
+            resetSettings();
+        }
+
+        private void btnEdit_Click_1(object sender, EventArgs e)
+        {
+            editMode();
+        }
+
+        private void btnUpdate_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                if (hasInvalidInput(txtName.Text, txtAddress.Text) == false)
+                {
+                    FacilityEntity fac = new FacilityEntity();
+                    fac.FacilityId = Convert.ToInt32(lblFacilityId.Text);
+                    fac.Name = txtName.Text;
+                    fac.Address = txtAddress.Text;
+                    if (chkActive.Checked)
+                    {
+                        fac.Active = "Y";
+                    }
+                    else
+                    {
+                        fac.Active = "N";
+                    }
+                    fac.DateCreated = lblCreated.Text;
+                    fac.DateUpdated = DateTime.Now.ToString();
+
+                    updateFacility(fac);
+                    getAllFacility();
+                    resetSettings();
+                    lblStatus.Text = "Status : Successfully Updated!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogging.Log(ex, this.Name, "Button Update");
+                MessageBox.Show("Error Detected, Let the Developer know", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
         }
         #endregion
     }

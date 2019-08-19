@@ -1,4 +1,4 @@
-﻿namespace ACHStaffScheduling.Setting
+﻿namespace ACHSystem.Setting
 {
     partial class frmSetSchedule
     {
@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSetSchedule));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.lblSelectedDate = new System.Windows.Forms.Label();
@@ -53,20 +54,16 @@
             this.rdByLastName = new System.Windows.Forms.RadioButton();
             this.rdById = new System.Windows.Forms.RadioButton();
             this.btnClear = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnGo = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.btnViewByStaff = new System.Windows.Forms.Button();
-            this.btnViewByFacility = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScheduledStaff)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -100,7 +97,7 @@
             this.lblSelectedDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelectedDate.Name = "lblSelectedDate";
             this.lblSelectedDate.Size = new System.Drawing.Size(42, 19);
-            this.lblSelectedDate.TabIndex = 72;
+            this.lblSelectedDate.TabIndex = 2;
             this.lblSelectedDate.Text = "0/0/0";
             // 
             // label1
@@ -123,7 +120,7 @@
             this.mosSelectDate.MinDate = new System.DateTime(2019, 1, 1, 0, 0, 0, 0);
             this.mosSelectDate.Name = "mosSelectDate";
             this.mosSelectDate.ShowToday = false;
-            this.mosSelectDate.TabIndex = 2;
+            this.mosSelectDate.TabIndex = 3;
             this.mosSelectDate.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.mosSelectDate_DateChanged);
             // 
             // groupBox2
@@ -136,9 +133,10 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(274, 2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(466, 257);
-            this.groupBox2.TabIndex = 3;
+            this.groupBox2.Size = new System.Drawing.Size(466, 270);
+            this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // label8
             // 
@@ -152,10 +150,12 @@
             // 
             // btnRemove
             // 
+            this.btnRemove.Image = ((System.Drawing.Image)(resources.GetObject("btnRemove.Image")));
+            this.btnRemove.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnRemove.Location = new System.Drawing.Point(291, 220);
             this.btnRemove.Name = "btnRemove";
-            this.btnRemove.Size = new System.Drawing.Size(162, 23);
-            this.btnRemove.TabIndex = 6;
+            this.btnRemove.Size = new System.Drawing.Size(162, 37);
+            this.btnRemove.TabIndex = 7;
             this.btnRemove.Text = "Remove Staff";
             this.btnRemove.UseVisualStyleBackColor = true;
             this.btnRemove.Click += new System.EventHandler(this.btnRemove_Click);
@@ -187,7 +187,7 @@
             this.dgvScheduledStaff.Name = "dgvScheduledStaff";
             this.dgvScheduledStaff.RowHeadersVisible = false;
             this.dgvScheduledStaff.Size = new System.Drawing.Size(438, 141);
-            this.dgvScheduledStaff.TabIndex = 5;
+            this.dgvScheduledStaff.TabIndex = 6;
             // 
             // Column1
             // 
@@ -236,17 +236,17 @@
             // cboFacility
             // 
             this.cboFacility.FormattingEnabled = true;
-            this.cboFacility.Location = new System.Drawing.Point(71, 24);
+            this.cboFacility.Location = new System.Drawing.Point(65, 22);
             this.cboFacility.Name = "cboFacility";
             this.cboFacility.Size = new System.Drawing.Size(186, 25);
-            this.cboFacility.TabIndex = 4;
+            this.cboFacility.TabIndex = 5;
             this.cboFacility.SelectedIndexChanged += new System.EventHandler(this.cboFacility_SelectedIndexChanged);
             this.cboFacility.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cboFacility_KeyPress);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 29);
+            this.label2.Location = new System.Drawing.Point(6, 27);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 17);
             this.label2.TabIndex = 71;
@@ -258,15 +258,15 @@
             this.groupBox3.Controls.Add(this.rdByLastName);
             this.groupBox3.Controls.Add(this.rdById);
             this.groupBox3.Controls.Add(this.btnClear);
+            this.groupBox3.Controls.Add(this.btnAdd);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.txtSearch);
             this.groupBox3.Controls.Add(this.btnGo);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Controls.Add(this.btnAdd);
-            this.groupBox3.Location = new System.Drawing.Point(274, 255);
+            this.groupBox3.Location = new System.Drawing.Point(274, 273);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(466, 258);
-            this.groupBox3.TabIndex = 7;
+            this.groupBox3.Size = new System.Drawing.Size(466, 275);
+            this.groupBox3.TabIndex = 8;
             this.groupBox3.TabStop = false;
             // 
             // dgvEmployee
@@ -284,7 +284,7 @@
             this.dgvEmployee.ReadOnly = true;
             this.dgvEmployee.RowHeadersVisible = false;
             this.dgvEmployee.Size = new System.Drawing.Size(438, 137);
-            this.dgvEmployee.TabIndex = 84;
+            this.dgvEmployee.TabIndex = 14;
             this.dgvEmployee.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployee_CellContentClick);
             // 
             // id
@@ -307,10 +307,10 @@
             // 
             this.rdByLastName.AutoSize = true;
             this.rdByLastName.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdByLastName.Location = new System.Drawing.Point(130, 53);
+            this.rdByLastName.Location = new System.Drawing.Point(117, 48);
             this.rdByLastName.Name = "rdByLastName";
             this.rdByLastName.Size = new System.Drawing.Size(92, 18);
-            this.rdByLastName.TabIndex = 10;
+            this.rdByLastName.TabIndex = 13;
             this.rdByLastName.TabStop = true;
             this.rdByLastName.Text = "By Last Name";
             this.rdByLastName.UseVisualStyleBackColor = true;
@@ -319,28 +319,42 @@
             // 
             this.rdById.AutoSize = true;
             this.rdById.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rdById.Location = new System.Drawing.Point(80, 53);
+            this.rdById.Location = new System.Drawing.Point(67, 48);
             this.rdById.Name = "rdById";
             this.rdById.Size = new System.Drawing.Size(50, 18);
-            this.rdById.TabIndex = 9;
+            this.rdById.TabIndex = 12;
             this.rdById.TabStop = true;
             this.rdById.Text = "By ID";
             this.rdById.UseVisualStyleBackColor = true;
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(389, 27);
+            this.btnClear.Image = ((System.Drawing.Image)(resources.GetObject("btnClear.Image")));
+            this.btnClear.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnClear.Location = new System.Drawing.Point(365, 18);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(63, 23);
-            this.btnClear.TabIndex = 12;
+            this.btnClear.Size = new System.Drawing.Size(92, 33);
+            this.btnClear.TabIndex = 11;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
+            // btnAdd
+            // 
+            this.btnAdd.Image = ((System.Drawing.Image)(resources.GetObject("btnAdd.Image")));
+            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnAdd.Location = new System.Drawing.Point(291, 224);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(162, 37);
+            this.btnAdd.TabIndex = 15;
+            this.btnAdd.Text = "Add to Schedule";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(19, 31);
+            this.label4.Location = new System.Drawing.Point(6, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 17);
             this.label4.TabIndex = 83;
@@ -348,17 +362,19 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(80, 26);
+            this.txtSearch.Location = new System.Drawing.Point(67, 21);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(234, 25);
-            this.txtSearch.TabIndex = 8;
+            this.txtSearch.Size = new System.Drawing.Size(194, 25);
+            this.txtSearch.TabIndex = 9;
             // 
             // btnGo
             // 
-            this.btnGo.Location = new System.Drawing.Point(320, 27);
+            this.btnGo.Image = ((System.Drawing.Image)(resources.GetObject("btnGo.Image")));
+            this.btnGo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnGo.Location = new System.Drawing.Point(267, 18);
             this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(63, 23);
-            this.btnGo.TabIndex = 11;
+            this.btnGo.Size = new System.Drawing.Size(92, 33);
+            this.btnGo.TabIndex = 10;
             this.btnGo.Text = "Go";
             this.btnGo.UseVisualStyleBackColor = true;
             this.btnGo.Click += new System.EventHandler(this.btnGo_Click);
@@ -373,53 +389,11 @@
             this.label6.TabIndex = 80;
             this.label6.Text = "Select Staff to add in the schedule";
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(291, 224);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(162, 23);
-            this.btnAdd.TabIndex = 14;
-            this.btnAdd.Text = "Add to Schedule";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btnViewByStaff);
-            this.groupBox4.Controls.Add(this.btnViewByFacility);
-            this.groupBox4.Location = new System.Drawing.Point(15, 255);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(253, 105);
-            this.groupBox4.TabIndex = 83;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "View Schedule";
-            // 
-            // btnViewByStaff
-            // 
-            this.btnViewByStaff.Location = new System.Drawing.Point(14, 63);
-            this.btnViewByStaff.Name = "btnViewByStaff";
-            this.btnViewByStaff.Size = new System.Drawing.Size(224, 27);
-            this.btnViewByStaff.TabIndex = 16;
-            this.btnViewByStaff.Text = "View schedule by Staff";
-            this.btnViewByStaff.UseVisualStyleBackColor = true;
-            this.btnViewByStaff.Click += new System.EventHandler(this.btnViewByStaff_Click);
-            // 
-            // btnViewByFacility
-            // 
-            this.btnViewByFacility.Location = new System.Drawing.Point(14, 27);
-            this.btnViewByFacility.Name = "btnViewByFacility";
-            this.btnViewByFacility.Size = new System.Drawing.Size(224, 27);
-            this.btnViewByFacility.TabIndex = 15;
-            this.btnViewByFacility.Text = "View schedule by Facility";
-            this.btnViewByFacility.UseVisualStyleBackColor = true;
-            this.btnViewByFacility.Click += new System.EventHandler(this.btnViewByFacility_Click);
-            // 
             // frmSetSchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 526);
-            this.Controls.Add(this.groupBox4);
+            this.ClientSize = new System.Drawing.Size(752, 570);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -437,7 +411,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -465,9 +438,6 @@
         private System.Windows.Forms.Button btnGo;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button btnViewByStaff;
-        private System.Windows.Forms.Button btnViewByFacility;
         private System.Windows.Forms.DataGridView dgvEmployee;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;

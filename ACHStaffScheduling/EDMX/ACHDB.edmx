@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ACHDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ACHDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -38,6 +38,34 @@
           <Property Name="DateCreated" Type="varchar" MaxLength="50" />
           <Property Name="DateUpdated" Type="varchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MiddleName" Type="varchar" MaxLength="50" />
+          <Property Name="FacilityID" Type="int" Nullable="false" />
+          <Property Name="Active" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DateCreated" Type="varchar" MaxLength="50" />
+          <Property Name="DateUpdated" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblPatientMedicationList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="MedicationName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dosage" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Direction" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="OrderedBy" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StartDate" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EndDate" Type="varchar" MaxLength="50" />
+          <Property Name="DurationType" Type="varchar" MaxLength="50" />
+          <Property Name="Note" Type="varchar" MaxLength="250" />
+        </EntityType>
         <EntityType Name="tblSchedule">
           <Key>
             <PropertyRef Name="Id" />
@@ -47,6 +75,30 @@
           <Property Name="FacilityID" Type="int" Nullable="false" />
           <Property Name="EmployeeID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_tblPatient_tblFacility">
+          <End Role="tblFacility" Type="Self.tblFacility" Multiplicity="1" />
+          <End Role="tblPatient" Type="Self.tblPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFacility">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPatient">
+              <PropertyRef Name="FacilityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPatientMedicationList_tblPatient">
+          <End Role="tblPatient" Type="Self.tblPatient" Multiplicity="1" />
+          <End Role="tblPatientMedicationList" Type="Self.tblPatientMedicationList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPatient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPatientMedicationList">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblSchedule_tblEmployee">
           <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="1" />
           <End Role="tblSchedule" Type="Self.tblSchedule" Multiplicity="*" />
@@ -71,11 +123,21 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ACHDBModelStoreContainer">
+        <EntityContainer Name="ACHDBStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmployee" EntityType="Self.tblEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblFacility" EntityType="Self.tblFacility" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPatient" EntityType="Self.tblPatient" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPatientMedicationList" EntityType="Self.tblPatientMedicationList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblSchedule" EntityType="Self.tblSchedule" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblPatient_tblFacility" Association="Self.FK_tblPatient_tblFacility">
+            <End Role="tblFacility" EntitySet="tblFacility" />
+            <End Role="tblPatient" EntitySet="tblPatient" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPatientMedicationList_tblPatient" Association="Self.FK_tblPatientMedicationList_tblPatient">
+            <End Role="tblPatient" EntitySet="tblPatient" />
+            <End Role="tblPatientMedicationList" EntitySet="tblPatientMedicationList" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblSchedule_tblEmployee" Association="Self.FK_tblSchedule_tblEmployee">
             <End Role="tblEmployee" EntitySet="tblEmployee" />
             <End Role="tblSchedule" EntitySet="tblSchedule" />
@@ -85,11 +147,10 @@
             <End Role="tblSchedule" EntitySet="tblSchedule" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="ACHDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="ACHDB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="sysdiagram">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -124,6 +185,7 @@
           <Property Name="DateCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DateUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblSchedules" Relationship="Self.FK_tblSchedule_tblFacility" FromRole="tblFacility" ToRole="tblSchedule" />
+          <NavigationProperty Name="tblPatients" Relationship="ACHDB.FK_tblPatient_tblFacility" FromRole="tblFacility" ToRole="tblPatient" />
         </EntityType>
         <EntityType Name="tblSchedule">
           <Key>
@@ -173,15 +235,80 @@
             <End Role="tblFacility" EntitySet="tblFacilities" />
             <End Role="tblSchedule" EntitySet="tblSchedules" />
           </AssociationSet>
+          <EntitySet Name="tblPatients" EntityType="ACHDB.tblPatient" />
+          <AssociationSet Name="FK_tblPatient_tblFacility" Association="ACHDB.FK_tblPatient_tblFacility">
+            <End Role="tblFacility" EntitySet="tblFacilities" />
+            <End Role="tblPatient" EntitySet="tblPatients" />
+          </AssociationSet>
+          <EntitySet Name="tblPatientMedicationLists" EntityType="ACHDB.tblPatientMedicationList" />
+          <AssociationSet Name="FK_tblPatientMedicationList_tblPatient" Association="ACHDB.FK_tblPatientMedicationList_tblPatient">
+            <End Role="tblPatient" EntitySet="tblPatients" />
+            <End Role="tblPatientMedicationList" EntitySet="tblPatientMedicationLists" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="tblPatient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Active" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FacilityID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblFacility" Relationship="ACHDB.FK_tblPatient_tblFacility" FromRole="tblPatient" ToRole="tblFacility" />
+          <Property Name="DateCreated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateUpdated" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblPatientMedicationLists" Relationship="ACHDB.FK_tblPatientMedicationList_tblPatient" FromRole="tblPatient" ToRole="tblPatientMedicationList" />
+        </EntityType>
+        <Association Name="FK_tblPatient_tblFacility">
+          <End Type="ACHDB.tblFacility" Role="tblFacility" Multiplicity="1" />
+          <End Type="ACHDB.tblPatient" Role="tblPatient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblFacility">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPatient">
+              <PropertyRef Name="FacilityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblPatientMedicationList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="MedicationName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Dosage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Direction" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="OrderedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EndDate" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DurationType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblPatient" Relationship="ACHDB.FK_tblPatientMedicationList_tblPatient" FromRole="tblPatientMedicationList" ToRole="tblPatient" />
+        </EntityType>
+        <Association Name="FK_tblPatientMedicationList_tblPatient">
+          <End Type="ACHDB.tblPatient" Role="tblPatient" Multiplicity="1" />
+          <End Type="ACHDB.tblPatientMedicationList" Role="tblPatientMedicationList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPatient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblPatientMedicationList">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ACHDBModelStoreContainer" CdmEntityContainer="ACHDBContainer">
+        <EntityContainerMapping StorageEntityContainer="ACHDBStoreContainer" CdmEntityContainer="ACHDBContainer">
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="ACHDBModel.sysdiagram">
+            <EntityTypeMapping TypeName="ACHDB.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -192,7 +319,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblEmployees">
-            <EntityTypeMapping TypeName="ACHDBModel.tblEmployee">
+            <EntityTypeMapping TypeName="ACHDB.tblEmployee">
               <MappingFragment StoreEntitySet="tblEmployee">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -205,7 +332,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblFacilities">
-            <EntityTypeMapping TypeName="ACHDBModel.tblFacility">
+            <EntityTypeMapping TypeName="ACHDB.tblFacility">
               <MappingFragment StoreEntitySet="tblFacility">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -217,12 +344,42 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblSchedules">
-            <EntityTypeMapping TypeName="ACHDBModel.tblSchedule">
+            <EntityTypeMapping TypeName="ACHDB.tblSchedule">
               <MappingFragment StoreEntitySet="tblSchedule">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="FacilityID" ColumnName="FacilityID" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPatients">
+            <EntityTypeMapping TypeName="ACHDB.tblPatient">
+              <MappingFragment StoreEntitySet="tblPatient">
+                <ScalarProperty Name="DateUpdated" ColumnName="DateUpdated" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="FacilityID" ColumnName="FacilityID" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPatientMedicationLists">
+            <EntityTypeMapping TypeName="ACHDB.tblPatientMedicationList">
+              <MappingFragment StoreEntitySet="tblPatientMedicationList">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="DurationType" ColumnName="DurationType" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="OrderedBy" ColumnName="OrderedBy" />
+                <ScalarProperty Name="Direction" ColumnName="Direction" />
+                <ScalarProperty Name="Dosage" ColumnName="Dosage" />
+                <ScalarProperty Name="MedicationName" ColumnName="MedicationName" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
